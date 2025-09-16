@@ -1,1 +1,1 @@
-# kspo_contest ㅎㅇ ㅋㅋ
+# kspo_contest
