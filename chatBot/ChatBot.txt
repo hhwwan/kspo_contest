@@ -1,0 +1,37 @@
+챗봇 계획(세 가지 방법)
+
+1. Chatgpt API 연동 후 코드 작성(엄청 어렵진 않은듯?)
+- Chatgpt 신규 계정 생성해야 할듯
+- 신용카드? VISA카드? 필요
+- API 생성 후 결제 해야함
+- GPT 3.5 turbo
+입력 토큰 0.0015$/1000토큰 ( gpt 4 0.03$, gpt 4 mini 0.015$ )
+출력 토큰 0.002$ /1000토큰 ( gpt 4 0.06$, gpt 4 mini 0.03$ )
+
+보통 단어당 1토큰이라고 생각하면 됨.
+한국어는 영어보다 2~3배의 토큰을 사용함.
+
+한글EX - Chatgpt 는 정말 놀라운 도구입니다 ! -> 총 6토큰
+영어EX - Chatgpt is amazing ! -> 총 4토큰
+
+현재는 우리가 앱을 배포해서 수백명이 쓰는것도 아니라 공모전 제출 전까진 비용이 매우 적을것 으로 예상됨 
+토큰 결제 사용제한 해놓을수있음(안전장치)
+
+- 코드에 API 불러와서 평소의 GPT 처럼 쓸 수 있는데, 우리가 정보를 추가해주면 그에 맞게 학습
+- 최종적으론 웹페이지에 연동
+
+2. Flextudio에 기본적으로 만들어져 있는 챗봇에 Chatgpt API 연동 후 프롬포트 추가해서 완성
+(이건 공모전이여서 안될듯? 되나? )
+
+3. Gemini API 연둥 후 코드 작성
+- Google AI Studio(aistudio.google.com)에 접속하여 Gemini API 사용 
+- 파이썬에 코드 작성
+- 개발된 챗봇 기능을 웹 앱 형태로 만들고, Google Cloud Vertex AI로 배포/연동 가능
+
+모델별 가격
+https://yourgpt.ai/tools/openai-and-other-llm-api-pricing-calculator
+
+젤 저렴한 모델은 GPT3.5(context가 수치가 낮음)
+가성비는 Gemini 라는 말이 있는데
+공모전 제출용이니까 GPT3.5써도? 흠.. 머쓰지
+context는 모델이 답을 생성하기 전에 참고하는 모든 배경 정보와 도구
