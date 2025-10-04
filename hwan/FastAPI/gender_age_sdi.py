@@ -7,11 +7,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib
 import platform
-from fastapi import FastAPI, Response
+from fastapi import APIRouter, Response
 from fastapi.responses import JSONResponse
 
 # 화면 없이 파일로 바로 그림 생성
 matplotlib.use('Agg')
+
+router = APIRouter()
 
 # Mac, Window 폰트 설정
 def set_platform_font():
@@ -49,8 +51,8 @@ def read_csv_s3(bucket: str, key: str) -> pd.DataFrame:
             raise
 
 # SDI 계산
-def compute_sdi(use_df: pd.DataFrame, need_df: pd.DataFrame, exclude_cols = ['지역', '사례수', '없다']):
-    # 컬럼 추출 (지역, 사례수, 없다 제외)
+def compute_sdi(use_df: pd.DataFrame, need_df: pd.DataFrame, exclude_cols = ['성별', '연령', '사례수', '없다']):
+    # 컬럼 추출 (성별, 연령, 사례수, 없다 제외)
     cols = [c for c in use_df.columns if c not in exclude_cols]
 
     # 숫자형 변환
@@ -61,53 +63,20 @@ def compute_sdi(use_df: pd.DataFrame, need_df: pd.DataFrame, exclude_cols = ['�
     # SDI 계산
     sdi_df = need_df[cols] - use_df[cols]
 
-    # 지역명을 인덱스로 지정
-    sdi_df['지역'] = need_df['지역']
-    sdi_df = sdi_df.set_index('지역')
+    # 성별, 연령을 인덱스로 지정
+    sdi_df['성별연령'] = need_df['성별'].astype(str) + "_" + need_df['연령'].astype(str)
+    sdi_df = sdi_df.set_index('성별연령')
 
     return sdi_df, cols
 
-# FastAPI 앱 생성
-app = FastAPI()
-
 # 공통 S3 경로
 BUCKET = 'kspo'
-USE_KEY = 'processed_data/use_facilities/use_region.csv'
-NEED_KEY = 'processed_data/need_facilities/need_region.csv'
+USE_KEY = 'processed_data/use_facilities/use_gender_age.csv'
+NEED_KEY = 'processed_data/need_facilities/need_gender_age.csv'
 
-# 전국 평균 SDI 시각화
-@app.get("/sdi/national")
-def get_national_sdi():
-    # csv 파일 읽기
-    use_df = read_csv_s3(BUCKET, USE_KEY)
-    need_df = read_csv_s3(BUCKET, NEED_KEY)
-
-    # SDI 계산
-    sdi_df, cols = compute_sdi(use_df, need_df)
-
-    # 그래프 생성
-    set_platform_font()
-    top_sdi = sdi_df.mean().sort_values(ascending=False).head(10)
-
-    plt.figure(dpi=300)
-    sns.barplot(x=top_sdi.index, y=top_sdi.values)
-    plt.xticks(rotation=45, ha='right')
-    plt.title(f'전국 평균 SDI (상위 {10}) 체육시설')
-    plt.ylabel('SDI (필요비율 - 이용비율)')
-    plt.xlabel('체육시설')
-    plt.tight_layout()
-
-    # 4) 메모리에 이미지 저장
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png', dpi=300, bbox_inches='tight')
-    plt.close()
-    buf.seek(0)
-
-    return Response(content=buf.getvalue(), media_type="image/png")
-
-# 지역 목록 API
-@app.get("/sdi/regions")
-def get_regions():
+# 성별연령 목록 API
+@router.get("/gender_ages")
+def get_gender_ages():
     # csv 파일 읽기
     use_df = read_csv_s3(BUCKET, USE_KEY)
     need_df = read_csv_s3(BUCKET, NEED_KEY)
@@ -115,14 +84,14 @@ def get_regions():
     # SDI 계산
     sdi_df, _ = compute_sdi(use_df, need_df)
 
-    # 지역 목록 리스트
-    regions = list(sdi_df.index)
-    return JSONResponse(content=regions)
+    # 성별연령 목록 리스트
+    gender_ages = list(sdi_df.index)
+    return JSONResponse(content=gender_ages)
 
 
-# 각 지역별 SDI 시각화
-@app.get("/sdi/region/{region_name}")
-def get_region_sdi(region_name: str):
+# 각 성별연령별 SDI 시각화
+@router.get("/gender_age/{gender_age_name}")
+def get_gender_age_sdi(gender_age_name: str):
 
     # csv 파일 읽기
     use_df = read_csv_s3(BUCKET, USE_KEY)
@@ -131,19 +100,19 @@ def get_region_sdi(region_name: str):
     # SDI 계산
     sdi_df, cols = compute_sdi(use_df, need_df)
 
-    if region_name not in sdi_df.index:
-        return Response(content=f"지역 '{region_name}' 데이터가 없습니다.".encode(), media_type="text/plain")
+    if gender_age_name not in sdi_df.index:
+        return Response(content=f"성별연령 '{gender_age_name}' 데이터가 없습니다.".encode(), media_type="text/plain")
 
-    # 각 지역 그래프 생성
+    # 각 성별연령 그래프 생성
     set_platform_font()
-    row = sdi_df.loc[region_name]
-    top_region = row[cols].nlargest(10)
+    row = sdi_df.loc[gender_age_name]
+    top_gender_age = row[cols].nlargest(10)
 
     plt.figure(dpi=300)
-    sns.barplot(x=top_region.index, y=top_region.values)
+    sns.barplot(x=top_gender_age.index, y=top_gender_age.values)
     plt.xticks(rotation=45, ha='right')
-    plt.title(f'{region_name} SDI 상위 10 체육시설')
-    plt.ylabel('SDI (필요비율 - 이용비율)')
+    plt.title(f'{gender_age_name} 공급부족 상위 10개 체육시설')
+    plt.ylabel('공급부족지수')
     plt.xlabel('체육시설')
     plt.tight_layout()
 
