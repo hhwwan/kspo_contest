@@ -68,5 +68,17 @@
     }
     button {
         background-color: #f9f9f9;
-    }
+    }    
 }
+
+.chat-container {
+    width: 40vw; /* 전체 화면의 40% */
+    max-width: none; /* 고정폭 제한 해제 */
+    height: calc(100vh - 64px);
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
