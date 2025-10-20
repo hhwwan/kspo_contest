@@ -41,6 +41,8 @@ dependencies {
     testImplementation 'io.projectreactor:reactor-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+    // 스프링부트는 .env 파일 찾지못해서 추가(이거 없으면 안되더라 EnvConfig.java랑)
+    implementation 'io.github.cdimascio:java-dotenv:5.2.2'
     // 필요시 JPA, MySQL
     // implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     // runtimeOnly 'com.mysql:mysql-connector-j'
