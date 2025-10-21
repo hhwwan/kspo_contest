@@ -82,3 +82,61 @@
     flex-direction: column;
     overflow: hidden;
   }
+
+/* 💬 말풍선 공통 스타일 */
+.flex-1 .p-3 {
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: all 0.2s ease-in-out;
+    line-height: 1.5;
+  }
+  
+  /* 🟦 사용자(오른쪽) 말풍선 */
+  .bg-blue-500 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border-top-right-radius: 12px;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 4px;
+  }
+  
+  /* ⚪ 챗봇(왼쪽) 말풍선 */
+  .bg-gray-300 {
+    background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+    border-top-right-radius: 16px;
+    border-top-left-radius: 12px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 4px;
+  }
+  
+  /* 🎀 살짝 부드러운 애니메이션 */
+  .bg-blue-500:hover, .bg-gray-300:hover {
+    transform: scale(1.02);
+  }
+  
+  /* 💫 말풍선 꼬리 추가 */
+  .bg-blue-500::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-left-color: #2563eb;
+    border-bottom: none;
+    border-top: none;
+  }
+  
+  .bg-gray-300::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-right-color: #d1d5db;
+    border-bottom: none;
+    border-top: none;
+  }

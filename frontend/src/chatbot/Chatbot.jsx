@@ -46,20 +46,24 @@ function Chatbot() {
             </div>
 
             {/* 채팅 영역 */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-2">
-                {messages.map((msg, idx) => (
-                    <div
-                        key={idx}
-                        className={`p-2 rounded-lg max-w-xs ${
-                            msg.role === "user"
-                                ? "bg-blue-500 text-white self-end"
-                                : "bg-gray-300 text-black self-start"
-                        }`}
-                    >
-                        {msg.text}
-                    </div>
-                ))}
-            </div>
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 flex flex-col">
+  {messages.map((msg, idx) => (
+    <div
+      key={idx}
+      className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+    >
+      <div
+        className={`p-3 rounded-2xl max-w-xs break-words ${
+          msg.role === "user"
+            ? "bg-blue-500 text-white rounded-br-none"
+            : "bg-gray-300 text-black rounded-bl-none"
+        }`}
+      >
+        {msg.text}
+      </div>
+    </div>
+  ))}
+</div>
 
             {/* 입력창 */}
             <div className="p-3 bg-white border-t flex">
