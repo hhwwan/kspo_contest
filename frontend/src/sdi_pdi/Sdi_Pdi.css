@@ -1,16 +1,18 @@
 /* 전체 페이지 컨테이너 */
 .page-container {
+    position: fixed; /* 화면 전체에 고정 */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 40px;
     padding: 60px 80px;
-    min-height: 100vh;
     font-family: 'Inter', 'Noto Sans KR', sans-serif;
-}
 
-/* 움직이는 그라데이션 배경 */
-body {
+    /* 배경 */
     background: linear-gradient(135deg, #1c1c28, #2f2f3f, #1c1c28, #3a3a4d);
     background-size: 400% 400%;
     animation: gradientMove 18s ease infinite;
