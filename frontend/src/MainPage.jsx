@@ -12,10 +12,10 @@ export default function MainPage() {
     const navigate = useNavigate();
 
     const serviceImages = [
-        { img: ChatbotImg, text: "chat bot", route: "/chat" }, // route 추가
+        { img: ChatbotImg, text: 'chat bot', route: "/chat" }, 
         { img: CustomImg, text: '맞춤형 체육시설 검색' },
-        { img: CommunityImg, text: '체육시설 공공 게시판' },
-        { img: SupplyImg, text: '수요 - 공급 현황 확인', route: "/sdi" }, // route 추가
+        { img: CommunityImg, text: '체육시설 공공 게시판', route: "/community"},
+        { img: SupplyImg, text: '수요 - 공급 현황 확인', route: "/sdi" },
     ];
 
 
