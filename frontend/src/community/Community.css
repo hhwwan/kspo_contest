@@ -1,51 +1,146 @@
+/* 전체 컨테이너 */
 .community-container {
     width: 100%;
-    max-width: 900px;
+    max-width: 1500px;
     margin: 0 auto;
     padding: 40px 20px;
     font-family: 'Inter', sans-serif;
-    
 }
 
+/* 제목 */
 .community-title {
-    font-size: 32px;
+    font-size: 50px;
     font-weight: 700;
     margin-bottom: 30px;
     text-align: center;
 }
 
+/* 검색창 */
+.search-input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* 게시글 리스트 */
 .posts-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.post-card {
-    padding: 20px;
+/* 가로 긴 카드 */
+.post-card-horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     background-color: #fff;
+    cursor: pointer;
     transition: transform 0.2s;
+
+    width: 1200px;      /* 원하는 고정 폭 (예: 기존보다 2배) */
+    max-width: 90%;     /* 화면보다 너무 크지 않게 */
+    margin: 0 auto;     /* 가운데 정렬 */
+    min-width: 0;      
+}
+
+.post-card-horizontal:hover {
+    transform: translateY(-3px);
+}
+
+/* 카드 내부 요소 */
+.post-card-horizontal .post-date {
+    width: 120px;
+    font-size: 14px;
+    color: #666;
+}
+
+.post-card-horizontal .post-title {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 20px;
+    color: #666;
+}
+
+.post-card-horizontal .post-author {
+    width: 100px;
+    font-size: 14px;
+    color: #666;
+}
+
+.delete-button {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.delete-button:hover {
+    background-color: #ff7875;
+}
+
+.delete-button:hover {
+    background-color: #a71d2a;
+}
+
+.pagination {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* 페이지네이션 + 뒤로가기 버튼 컨테이너 */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    position: relative; /* 뒤로가기 버튼 절대 위치 활용 */
+}
+
+/* 페이지네이션: 가로 가운데 */
+.pagination {
+    margin: 0 auto;  /* flex 안에서 가운데 정렬 */
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
     cursor: pointer;
 }
 
-.post-card:hover {
-    transform: translateY(-5px);
+.pagination button.active {
+    background-color: #0056b3;
 }
 
-.post-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 10px;
+.pagination button:hover {
+    background-color: #0056b3;
 }
 
-.post-meta {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 15px;
+/* 뒤로가기 버튼 */
+.community-back-button {
+    position: absolute;
+    right: 0;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
 }
 
-.post-content {
-    font-size: 16px;
-    line-height: 1.5;
+.community-back-button:hover {
+    background-color: #0056b3;
 }
