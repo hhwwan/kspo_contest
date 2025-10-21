@@ -6,6 +6,7 @@ import CommunityImg from './assets/community.png';
 import SupplyImg from './assets/supply.png';
 import EllipseImg from './assets/logo.jpg';
 import BuildingImg from './assets/building.jpg';
+import './App.css'
 
 export default function MainPage() {
     const navigate = useNavigate();
