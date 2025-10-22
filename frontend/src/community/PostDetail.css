@@ -14,7 +14,7 @@
     font-size: 36px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 20px; /* 작성자/날짜와의 간격 */
+    margin-bottom: 30px; /* 작성자/날짜와의 간격 */
 }
 
 /* 작성자/날짜 */
@@ -23,7 +23,7 @@
     display: flex;
     justify-content: flex-end; /* 오른쪽 끝 정렬 */
     font-size: 16px;
-    margin-bottom: 20px; /* 내용과의 간격 */
+    margin-bottom: 40px; /* 내용과의 간격 */
     gap: 10px; /* 작성자와 날짜 사이 띄움 */
 }
 
@@ -38,7 +38,7 @@
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     line-height: 1.8;
     font-size: 20px;
-    margin-bottom: 25px;
+    margin-bottom: 40px;
     text-align: left; /* 글 왼쪽 정렬 */
 }
 
