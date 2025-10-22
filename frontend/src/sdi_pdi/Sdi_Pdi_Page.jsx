@@ -97,7 +97,7 @@ function Sdi_Pdi_Page() {
                     </select>
                 </div>
 
-                <button className="back-button" onClick={() => navigate('/')}>
+                <button className="sdi-back-button" onClick={() => navigate('/')}>
                 ← 메인으로 돌아가기
                 </button>
             </div>

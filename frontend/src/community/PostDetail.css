@@ -1,0 +1,92 @@
+.post-detail-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+/* 제목 */
+.post-detail-title {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px; /* 작성자/날짜와의 간격 */
+}
+
+/* 작성자/날짜 */
+.post-detail-meta {
+    width: 1400px; /* 내용과 같은 폭 */
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 끝 정렬 */
+    font-size: 16px;
+    margin-bottom: 20px; /* 내용과의 간격 */
+    gap: 10px; /* 작성자와 날짜 사이 띄움 */
+}
+
+/* 내용 */
+.post-detail-content-wrapper {
+    background-color: #fff;
+    color: #000;
+    padding: 30px 40px;
+    width: 1400px;
+    min-height: 550px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    line-height: 1.8;
+    font-size: 20px;
+    margin-bottom: 25px;
+    text-align: left; /* 글 왼쪽 정렬 */
+}
+
+/* footer: 수정 버튼 + 뒤로가기 버튼 */
+.detail-footer {
+    width: 100%;     
+    position: relative;    
+    height: 60px;  
+}
+
+/* 뒤로가기 버튼 */
+.detail-back-button {
+    position: absolute;
+    right: 0;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* 뒤로가기 버튼을 오른쪽 끝 */
+.detail-back-button-wrapper {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 끝 */
+    flex: 1;
+}
+
+.detail-back-button:hover {
+    background-color: #0056b3;
+}
+
+/* 수정 버튼 */
+.edit-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* 가운데 정렬 */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.edit-button:hover {
+    background-color: #1e7e34;
+}
