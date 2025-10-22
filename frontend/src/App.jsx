@@ -3,7 +3,11 @@ import MainPage from "./MainPage";
 import ChatPage from "./chatbot/ChatPage";
 import Community from "./community/Community";
 import PostDetail from "./community/PostDetail";
+import CommunityWrite from "./community/CommunityWrite";
+import PostEdit from "./community/PostEdit";
+
 import Sdi_Pdi_Page from "./sdi_pdi/Sdi_Pdi_Page";
+
 
 function App() {
   return (
@@ -13,6 +17,8 @@ function App() {
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/community" element={<Community />} />
         <Route path="/community/:id" element={<PostDetail />} /> {/* 상세페이지 라우트 */}
+        <Route path="/community/write" element={<CommunityWrite />} />
+        <Route path="/community/:id/edit" element={<PostEdit />} />
         <Route path="/sdi" element={<Sdi_Pdi_Page />} />
       </Routes>
     </BrowserRouter>

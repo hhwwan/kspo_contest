@@ -15,6 +15,28 @@
     text-align: center;
 }
 
+/* 검색창 + 작성 버튼 한 줄 배치 */
+.search-write-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 기본으로 검색창 가운데 */
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* 검색창 가운데 고정 */
+.search-write-container .search-input {
+    flex: 0 0 50%; /* 50% 너비 고정 */
+}
+
+/* 작성 버튼 오른쪽 끝 */
+.search-write-container .write-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 /* 검색창 */
 .search-input {
     width: 50%;
@@ -95,6 +117,23 @@
 .pagination {
     margin-top: 30px;
     text-align: center;
+}
+
+/* 작성 버튼 */
+.write-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: auto;
+    transition: 0.2s;
+}
+
+.write-button:hover {
+    background-color: #0056b3;
 }
 
 /* 페이지네이션 + 뒤로가기 버튼 컨테이너 */
