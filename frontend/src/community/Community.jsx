@@ -10,7 +10,7 @@ export default function Community() {
     const postsPerPage = 5;
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/community')
+        fetch('http://13.124.222.250:8080/api/community')
             .then(res => res.json())
             .then(data => setPosts(data))
             .catch(err => console.error(err));
@@ -33,7 +33,7 @@ export default function Community() {
 
     // 게시글 삭제
     const handleDelete = (id) => {
-        fetch(`http://localhost:8080/api/community/${id}`, { method: 'DELETE' })
+        fetch(`http://13.124.222.250:8080/api/community/${id}`, { method: 'DELETE' })
             .then(() => setPosts(posts.filter(post => post.id !== id)));
     };
 

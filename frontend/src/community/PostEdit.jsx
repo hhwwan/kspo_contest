@@ -10,7 +10,7 @@ export default function PostEdit() {
     const [content, setContent] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/community/${id}`)
+        fetch(`http://13.124.222.250:8080/api/community/${id}`)
             .then(res => res.json())
             .then(data => {
                 setTitle(data.title);
@@ -26,7 +26,7 @@ export default function PostEdit() {
             return;
         }
         
-        fetch(`http://localhost:8080/api/community/${id}`, {
+        fetch(`http://13.124.222.250:8080/api/community/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title, author, content })
