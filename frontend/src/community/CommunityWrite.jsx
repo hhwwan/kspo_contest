@@ -14,7 +14,7 @@ export default function CommunityWrite() {
             return;
         }
         
-        fetch("http://localhost:8080/api/community", {
+        fetch("http://13.124.222.250:8080/api/community", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ title, author, content })

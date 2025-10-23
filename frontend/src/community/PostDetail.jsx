@@ -8,7 +8,7 @@ export default function PostDetail() {
     const [post, setPost] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/community/${id}`)
+        fetch(`http://13.124.222.250:8080/api/community/${id}`)
             .then(res => res.json())
             .then(data => setPost(data))
             .catch(err => console.error(err));
@@ -19,7 +19,7 @@ export default function PostDetail() {
         const newContent = prompt('내용을 수정하세요', post.content);
 
         if (newTitle && newContent) {
-            fetch(`http://localhost:8080/api/community/${id}`, {
+            fetch(`http://13.124.222.250:8080/api/community/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...post, title: newTitle, content: newContent })

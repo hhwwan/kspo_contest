@@ -4,6 +4,7 @@ import com.example.backend.entity.Post;
 import com.example.backend.repository.PostRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.time.LocalDateTime;
 
@@ -20,7 +21,7 @@ public class PostController {
     // 전체 게시글 조회
     @GetMapping
     public List<Post> getAllPosts() {
-        return postRepository.findAll();
+        return postRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
     // 게시글 작성
