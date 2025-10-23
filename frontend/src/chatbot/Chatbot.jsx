@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Chatbot.css'
+import './Chatbot.css';
 
 function Chatbot() {
     const [messages, setMessages] = useState([]);
@@ -10,34 +10,31 @@ function Chatbot() {
 
         const newMessage = { role: "user", text: input };
         setMessages((prev) => [...prev, newMessage]);
-
         setInput("");
-        const API_URL = "/api/chat";
-        
+
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch("/api/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: input }),
             });
-            const data = await response.json();
 
-            setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
+            const data = await response.json();
+            const botReply = data.reply.replace(/\n/g, "<br/>"); // 줄바꿈 처리
+
+            setMessages((prev) => [...prev, { role: "bot", text: botReply }]);
         } catch (error) {
             console.error("Error:", error);
         }
     };
 
-    const handleBack = () => {
-        window.history.back(); // 이전 페이지로 이동
-    };
+    const handleBack = () => window.history.back();
 
     return (
         <div className="chat-container flex flex-col h-screen bg-gray-100">
-            {/* 상단 돌아가기 버튼 */}
             <div className="p-3 bg-gray-200 border-b flex items-center">
-                <button 
-                    onClick={handleBack} 
+                <button
+                    onClick={handleBack}
                     className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                 >
                     돌아가기
@@ -47,23 +44,22 @@ function Chatbot() {
 
             {/* 채팅 영역 */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3 flex flex-col">
-  {messages.map((msg, idx) => (
-    <div
-      key={idx}
-      className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-    >
-      <div
-        className={`p-3 rounded-2xl max-w-xs break-words ${
-          msg.role === "user"
-            ? "bg-blue-500 text-white rounded-br-none"
-            : "bg-gray-300 text-black rounded-bl-none"
-        }`}
-      >
-        {msg.text}
-      </div>
-    </div>
-  ))}
-</div>
+                {messages.map((msg, idx) => (
+                    <div
+                        key={idx}
+                        className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                    >
+                        <div
+                            className={`p-3 rounded-2xl max-w-xs break-words ${
+                                msg.role === "user"
+                                    ? "bg-blue-500 text-white rounded-br-none"
+                                    : "bg-gray-300 text-black rounded-bl-none"
+                            }`}
+                            dangerouslySetInnerHTML={{ __html: msg.text }}
+                        />
+                    </div>
+                ))}
+            </div>
 
             {/* 입력창 */}
             <div className="p-3 bg-white border-t flex">

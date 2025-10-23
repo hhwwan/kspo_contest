@@ -48,6 +48,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.mysql:mysql-connector-j:8.1.0'
 
+    // AWS SDK v2 S3
+    implementation 'software.amazon.awssdk:s3:2.20.34'
+
+    // AWS SDK 기본 (Region, Credentials 등)
+    implementation 'software.amazon.awssdk:auth:2.20.34'
+    implementation 'software.amazon.awssdk:regions:2.20.34'
 }
 
 tasks.named('test') {
