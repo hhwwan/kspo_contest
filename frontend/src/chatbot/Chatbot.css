@@ -151,3 +151,16 @@
     100% { opacity: 0; transform: translateY(-10px); }
   }
   
+  /* 💡 예시 질문 목록 스타일 */
+.example-questions {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.example-questions span {
+  user-select: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

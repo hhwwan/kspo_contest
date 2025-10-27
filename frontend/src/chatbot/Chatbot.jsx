@@ -8,10 +8,9 @@ function Chatbot() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowAlert(false); // 2초 후 자동 사라짐
+      setShowAlert(false);
     }, 2000);
-
-    return () => clearTimeout(timer); // cleanup
+    return () => clearTimeout(timer);
   }, []);
 
   const handleSend = async () => {
@@ -75,6 +74,22 @@ function Chatbot() {
             />
           </div>
         ))}
+      </div>
+
+      {/* 💡 예시 질문 목록 */}
+      <div className="example-questions p-3 bg-gray-50 border-t">
+        <p className="font-semibold text-gray-700 mb-2">이런 질문을 해보세요 👇</p>
+        <div className="flex flex-wrap gap-2">
+          {["실내운동 추천해줘", "실외운동 추천해줘"].map((q, idx) => (
+            <span
+              key={idx}
+              onClick={() => setInput(q)}
+              className="cursor-pointer bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm hover:bg-blue-200 transition"
+            >
+              {q}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* 입력창 */}
