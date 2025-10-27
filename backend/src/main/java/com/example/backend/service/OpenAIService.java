@@ -110,10 +110,10 @@ public String getChatbotReply(String message) {
         List<Exercise> selected = new ArrayList<>(filtered.stream().limit(3).toList());
 
         StringBuilder sb = new StringBuilder();
-        sb.append("💪 추천드리는 ").append(locationType).append("은(는) 다음과 같습니다:\n\n");
+        sb.append("추천드리는 ").append(locationType).append("이에요!\n\n");
         for (Exercise e : selected) {
-            sb.append("🏷️ ").append(e.getTitle()).append("\n")
-              .append("📺 ").append(e.getVideoUrl()).append("\n\n");
+            sb.append("").append(e.getTitle()).append("\n")
+              .append("").append(e.getVideoUrl()).append("\n\n");
         }
         sb.append("즐겁게 운동해보세요! 🏃‍♀️");
 

@@ -26,14 +26,6 @@
     color: #535bf2;
     }
 
-    body {
-    margin: 0;
-    display: flex;
-    place-items: center;
-    min-width: 320px;
-    min-height: 100vh;
-    }
-
     h1 {
     font-size: 3.2em;
     line-height: 1.1;
@@ -72,7 +64,8 @@
 }
 
 .chat-container {
-    width: 40vw; /* 전체 화면의 40% */
+    margin-top: 35px;
+    width: 35vw; /* 전체 화면의 40% */
     max-width: none; /* 고정폭 제한 해제 */
     height: calc(100vh - 64px);
     background: #ffffff;
@@ -140,3 +133,34 @@
     border-bottom: none;
     border-top: none;
   }
+
+  .chat-alert {
+    background-color: #2563eb; /* 파란색 */
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    animation: fadeInOut 3s forwards; /* 입장 후 3초 후 사라짐 */
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+  }
+  
+  /* 💡 예시 질문 목록 스타일 */
+.example-questions {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.example-questions span {
+  user-select: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
