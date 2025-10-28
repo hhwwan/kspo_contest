@@ -93,30 +93,33 @@ public String getChatbotReply(String message) {
 
 
     private String getExerciseRecommendation(String locationType) {
-        List<Exercise> exercises = s3CsvService.loadExercisesFromS3(bucketName, fileKey);
-        if (exercises.isEmpty()) return "운동 데이터를 불러오지 못했습니다.";
+    List<Exercise> exercises = s3CsvService.loadExercisesFromS3(bucketName, fileKey);
+    if (exercises.isEmpty()) return "운동 데이터를 불러오지 못했습니다.";
 
-        // mutable 리스트로 변환
-        List<Exercise> filtered = new ArrayList<>();
-        for (Exercise e : exercises) {
-            if (e.getLocationType().equalsIgnoreCase(locationType)) {
-                filtered.add(e);
-            }
+    List<Exercise> filtered = new ArrayList<>();
+    for (Exercise e : exercises) {
+        if (e.getLocationType().equalsIgnoreCase(locationType)) {
+            filtered.add(e);
         }
-
-        if (filtered.isEmpty()) return locationType + " 관련 운동을 찾을 수 없습니다.";
-
-        Collections.shuffle(filtered); // 이제 안전하게 동작
-        List<Exercise> selected = new ArrayList<>(filtered.stream().limit(3).toList());
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("추천드리는 ").append(locationType).append("이에요!\n\n");
-        for (Exercise e : selected) {
-            sb.append("").append(e.getTitle()).append("\n")
-              .append("").append(e.getVideoUrl()).append("\n\n");
-        }
-        sb.append("즐겁게 운동해보세요! 🏃‍♀️");
-
-        return sb.toString();
     }
+
+    if (filtered.isEmpty()) return locationType + " 관련 운동을 찾을 수 없습니다.";
+
+    Collections.shuffle(filtered);
+    List<Exercise> selected = new ArrayList<>(filtered.stream().limit(3).toList());
+
+    StringBuilder sb = new StringBuilder();
+    sb.append("추천드리는 ").append(locationType).append("이에요!<br><br>");
+
+    for (Exercise e : selected) {
+        sb.append("• ").append(e.getTitle()).append("<br>")
+          .append("<a href='").append(e.getVideoUrl())
+          .append("' target='_blank' style='color:#007bff;text-decoration:underline;'>")
+          .append("영상 보러가기")
+          .append("</a><br><br>");
+    }
+
+    sb.append("즐겁게 운동해보세요! 🏃‍♀️");
+    return sb.toString();
+}
 }

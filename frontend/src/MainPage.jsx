@@ -37,7 +37,7 @@ export default function MainPage() {
                 const width = Math.floor(window.innerWidth * 0.8);
                 const height = Math.floor(window.innerHeight * 0.8);
                 window.open(
-                  "/chat",
+                  `${window.location.origin}/chat`,
                   "_blank",
                   `width=${width},height=${height},resizable=yes,scrollbars=yes`
                 );
