@@ -1,19 +1,19 @@
 .post-detail-container {
+    position: relative;
     width: 100vw;
     height: 100vh;
     padding: 40px 20px;
     font-family: 'Inter', sans-serif;
-    box-sizing: border-box;
 }
 
 /* 가운데 정렬용 래퍼 */
-.post_detail-wrapper {
+.post-detail-wrapper {
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    max-width: 80%;
+    max-width: 90%;
     box-sizing: border-box;
 }
 
@@ -29,9 +29,9 @@
 .post-detail-meta {
     position: absolute;
     display: flex;
-    right: 11%;
+    right: 10%;
     font-size: 16px;
-    top: 100px;
+    top: 60px;
     gap: 10px; /* 작성자와 날짜 사이 띄움 */
 }
 
