@@ -33,26 +33,28 @@ export default function PostDetail() {
 
     return (
         <div className="post-detail-container">
-            <div className="detail-header">
-                <h1 className="post-detail-title">{post.title}</h1>
-                <div className="post-detail-meta">
-                    <span>{post.author}</span> | <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+            <div className="post-detail-wrapper">
+                <div className="detail-header">
+                    <h1 className="post-detail-title">{post.title}</h1>
+                    <div className="post-detail-meta">
+                        <span>{post.author}</span> | <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                    </div>
+                    <div className="post-detail-content-wrapper">
+                        <p className="post-content">{post.content}</p>
+                    </div>
                 </div>
-                <div className="post-detail-content-wrapper">
-                    <p className="post-content">{post.content}</p>
-                </div>
-            </div>
 
-            <div className="detail-footer">
-                <button
-                    className="edit-button"
-                    onClick={() => navigate(`/community/${post.id}/edit`)}
-                >
-                    수정
-                </button>
-                <button className="detail-back-button" onClick={() => navigate('/community')}>
-                    ← 목록으로 돌아가기
-                </button>
+                <div className="detail-footer">
+                    <button
+                        className="edit-button"
+                        onClick={() => navigate(`/community/${post.id}/edit`)}
+                    >
+                        수정
+                    </button>
+                    <button className="detail-back-button" onClick={() => navigate('/community')}>
+                        ← 목록으로 돌아가기
+                    </button>
+                </div>
             </div>
         </div>
     );
