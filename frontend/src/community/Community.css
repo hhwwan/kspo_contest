@@ -1,10 +1,21 @@
 /* 전체 컨테이너 */
 .community-container {
-    width: 100%;
-    max-width: 1500px;
-    margin: 0 auto;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
     padding: 40px 20px;
     font-family: 'Inter', sans-serif;
+}
+
+/* 가운데 정렬용 래퍼 */
+.community-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 80%;
+    box-sizing: border-box;
 }
 
 /* 제목 */
@@ -21,7 +32,7 @@
     align-items: center;
     justify-content: center; /* 기본으로 검색창 가운데 */
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     position: relative;
 }
 
@@ -39,7 +50,6 @@
 
 /* 검색창 */
 .search-input {
-    width: 50%;
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -64,11 +74,6 @@
     background-color: #fff;
     cursor: pointer;
     transition: transform 0.2s;
-
-    width: 1200px;      /* 원하는 고정 폭 (예: 기존보다 2배) */
-    max-width: 90%;     /* 화면보다 너무 크지 않게 */
-    margin: 0 auto;     /* 가운데 정렬 */
-    min-width: 0;      
 }
 
 .post-card-horizontal:hover {

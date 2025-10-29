@@ -21,6 +21,7 @@ public class BackendApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("http://13.124.222.250:5173") // React 개발 서버 주소
+                        .allowedOrigins("http://localhost:5173") // React 개발 서버 주소
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
             }
         };
