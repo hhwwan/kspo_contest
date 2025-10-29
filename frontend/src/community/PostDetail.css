@@ -1,8 +1,19 @@
 .post-detail-container {
-    width: 100%;
-    min-height: 100vh;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
     padding: 40px 20px;
     font-family: 'Inter', sans-serif;
+}
+
+/* 가운데 정렬용 래퍼 */
+.post-detail-wrapper {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 90%;
     box-sizing: border-box;
 }
 
@@ -16,11 +27,11 @@
 
 /* 작성자/날짜 */
 .post-detail-meta {
-    width: 1400px; /* 내용과 같은 폭 */
+    position: absolute;
     display: flex;
-    justify-content: flex-end; /* 오른쪽 끝 정렬 */
+    right: 10%;
     font-size: 16px;
-    margin-bottom: 40px; /* 내용과의 간격 */
+    top: 60px;
     gap: 10px; /* 작성자와 날짜 사이 띄움 */
 }
 
@@ -29,27 +40,28 @@
     background-color: #fff;
     color: #000;
     padding: 30px 40px;
-    width: 100%;
+    width: 80%;
     min-height: 550px;
     border-radius: 12px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     line-height: 1.8;
     font-size: 20px;
-    margin-bottom: 40px;
     text-align: left; /* 글 왼쪽 정렬 */
+    margin: 100px auto 0 auto;
 }
 
 /* footer: 수정 버튼 + 뒤로가기 버튼 */
 .detail-footer {
     width: 100%;     
-    position: relative;    
+    position: relative;  
+    margin-top: 40px;  
     height: 60px;  
 }
 
 /* 뒤로가기 버튼 */
 .detail-back-button {
     position: absolute;
-    right: 0;
+    right: 10%;
     padding: 12px 20px;
     border: none;
     border-radius: 8px;
