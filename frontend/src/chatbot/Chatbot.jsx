@@ -1,39 +1,70 @@
 import React, { useState, useEffect } from "react";
-import './Chatbot.css';
+import "./Chatbot.css";
 
 function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [showAlert, setShowAlert] = useState(true); // 입장 시 알림 표시
+  const [showAlert, setShowAlert] = useState(true);
+
+  // ✅ 로그인된 사용자 토큰 가져오기
+  const token = localStorage.getItem("token");
+
+  // ✅ 로그인 시 이전 대화 불러오기
+  useEffect(() => {
+    if (token) {
+      fetch("/api/chat/history", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const historyMessages = data.map((msg) => ({
+            role: msg.role,
+            text: msg.message,
+          }));
+          setMessages(historyMessages);
+        })
+        .catch((err) => console.error("대화 기록 불러오기 실패:", err));
+    }
+  }, [token]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowAlert(false);
-    }, 2000);
+    const timer = setTimeout(() => setShowAlert(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
+  // ✅ 메시지 전송
   const handleSend = async () => {
     if (!input.trim()) return;
-
+  
     const newMessage = { role: "user", text: input };
     setMessages((prev) => [...prev, newMessage]);
     setInput("");
-
+  
     try {
-      const response = await fetch("/api/chat", {
+      // 로그인 여부에 따라 URL 선택
+      const url = token ? "/api/chat/send" : "/api/chat";
+  
+      const res = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({ message: input }),
       });
-
-      const data = await response.json();
+  
+      const data = await res.json();
       const botReply = data.reply.replace(/\n/g, "<br/>");
+  
       setMessages((prev) => [...prev, { role: "bot", text: botReply }]);
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (err) {
+      console.error("Error:", err);
     }
   };
+  
 
   const handleBack = () => window.history.back();
 
@@ -41,9 +72,7 @@ function Chatbot() {
     <div className="chat-container flex flex-col h-screen bg-gray-100">
       {/* 상단 알림 */}
       {showAlert && (
-        <div className="chat-alert">
-          사이트에 궁금한 점을 물어보세요
-        </div>
+        <div className="chat-alert">사이트에 궁금한 점을 물어보세요</div>
       )}
 
       {/* 헤더 */}
@@ -62,7 +91,9 @@ function Chatbot() {
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+            className={`flex ${
+              msg.role === "user" ? "justify-end" : "justify-start"
+            }`}
           >
             <div
               className={`p-3 rounded-2xl max-w-xs break-words ${
@@ -76,9 +107,11 @@ function Chatbot() {
         ))}
       </div>
 
-      {/* 💡 예시 질문 목록 */}
+      {/* 예시 질문 */}
       <div className="example-questions p-3 bg-gray-50 border-t">
-        <p className="font-semibold text-gray-700 mb-2">이런 질문을 해보세요 👇</p>
+        <p className="font-semibold text-gray-700 mb-2">
+          이런 질문을 해보세요 👇
+        </p>
         <div className="flex flex-wrap gap-2">
           {["실내운동 추천해줘", "실외운동 추천해줘"].map((q, idx) => (
             <span

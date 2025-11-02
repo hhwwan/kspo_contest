@@ -7,6 +7,7 @@ plugins {
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 description = 'Demo project for Spring Boot'
+sourceCompatibility = '17'
 
 java {
 	toolchain {
@@ -30,8 +31,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     // Lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
 
     // Devtools
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
@@ -46,7 +48,8 @@ dependencies {
 
     // MySQL
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'com.mysql:mysql-connector-j:8.1.0'
+    implementation 'com.mysql:mysql-connector-j:8.0.33'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.33' 
 
     // AWS SDK v2 S3
     implementation 'software.amazon.awssdk:s3:2.20.34'
@@ -54,6 +57,12 @@ dependencies {
     // AWS SDK 기본 (Region, Credentials 등)
     implementation 'software.amazon.awssdk:auth:2.20.34'
     implementation 'software.amazon.awssdk:regions:2.20.34'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 }
 
 tasks.named('test') {

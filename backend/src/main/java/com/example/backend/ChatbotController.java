@@ -1,4 +1,4 @@
-package com.example.backend;
+package com.example.backend.controller;
 
 import com.example.backend.service.OpenAIService;
 import org.springframework.beans.factory.annotation.Autowired;

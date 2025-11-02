@@ -5,7 +5,8 @@ import Community from "./community/Community";
 import PostDetail from "./community/PostDetail";
 import CommunityWrite from "./community/CommunityWrite";
 import PostEdit from "./community/PostEdit";
-
+import LoginPage from "./auth/LoginPage";
+import SignUpPage from "./auth/SignupPage";
 import Sdi_Pdi_Page from "./sdi_pdi/Sdi_Pdi_Page";
 
 
@@ -20,6 +21,8 @@ function App() {
         <Route path="/community/write" element={<CommunityWrite />} />
         <Route path="/community/:id/edit" element={<PostEdit />} />
         <Route path="/sdi" element={<Sdi_Pdi_Page />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </BrowserRouter>
   );
