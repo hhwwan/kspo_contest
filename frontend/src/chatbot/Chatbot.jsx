@@ -6,10 +6,10 @@ function Chatbot() {
   const [input, setInput] = useState("");
   const [showAlert, setShowAlert] = useState(true);
 
-  // ✅ 로그인된 사용자 토큰 가져오기
+  //  로그인된 사용자 토큰 가져오기
   const token = localStorage.getItem("token");
 
-  // ✅ 로그인 시 이전 대화 불러오기
+  //  로그인 시 이전 대화 불러오기
   useEffect(() => {
     if (token) {
       fetch("/api/chat/history", {
@@ -31,11 +31,11 @@ function Chatbot() {
   }, [token]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowAlert(false), 2000);
+    const timer = setTimeout(() => setShowAlert(false), 7000);
     return () => clearTimeout(timer);
   }, []);
 
-  // ✅ 메시지 전송
+  //  메시지 전송
   const handleSend = async () => {
     if (!input.trim()) return;
   
@@ -72,7 +72,10 @@ function Chatbot() {
     <div className="chat-container flex flex-col h-screen bg-gray-100">
       {/* 상단 알림 */}
       {showAlert && (
-        <div className="chat-alert">사이트에 궁금한 점을 물어보세요</div>
+        <div className="chat-alert">
+        사이트에 대해 궁금한 점을 물어보세요!<br />
+        로그인하면 챗봇과의 기억이 유지돼요!
+      </div>
       )}
 
       {/* 헤더 */}
