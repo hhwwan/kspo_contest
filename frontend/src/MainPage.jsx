@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ChatbotImg from './assets/chatbot.jpg';
 import CustomImg from './assets/custom.png';
@@ -11,6 +11,21 @@ import './App.css';
 export default function MainPage() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // 로그인 상태 확인
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token); // token이 있으면 true
+  }, []);
+
+  // 로그아웃
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    alert("로그아웃 되었습니다.");
+    navigate("/");
+  };
 
   const serviceImages = [
     { img: ChatbotImg, text: '챗봇', route: "/chat" },
@@ -21,7 +36,6 @@ export default function MainPage() {
 
   return (
     <div className="main-container">
-      {/*<section className="main-hero" style={{ backgroundImage: `url(${BuildingImg})` }}> -> 이게 전부다 100%로 나오게*/}
       <section className="main-hero">
         <img src={BuildingImg} alt="Background" className="bg-image" />
         <header className="main-header">
@@ -29,7 +43,7 @@ export default function MainPage() {
           <div className="main-logo">LeisureUp</div>
 
           {/* 오른쪽 전체 영역 */}
-          <div className="header-right"> 
+          <div className="header-right">
             {/* 챗봇 링크 */}
             <div
               className="chatbot-top-link"
@@ -41,19 +55,28 @@ export default function MainPage() {
                   "_blank",
                   `width=${width},height=${height},resizable=yes,scrollbars=yes`
                 );
-              }}>
+              }}
+            >
               간편하게 <span className="chatbot-highlight">챗봇에 질문하기!</span>
             </div>
 
-            {/* 로그인 버튼 */}
+            {/* ✅ 로그인 상태에 따라 버튼 변경 */}
             <div className="main-header-buttons">
-              <button>Login</button>
-              <button className="signup-btn">Sign Up</button>
+              {isLoggedIn ? (
+                <button onClick={handleLogout}>Logout</button>
+              ) : (
+                <>
+                  <button onClick={() => navigate("/login")}>Login</button>
+                  <button className="signup-btn" onClick={() => navigate("/signup")}>Sign Up</button>
+                </>
+              )}
             </div>
 
             {/* 햄버거 메뉴 */}
-            <div className={`hamburger ${menuOpen ? 'open' : ''}`}
-              onClick={() => setMenuOpen(!menuOpen)}>
+            <div
+              className={`hamburger ${menuOpen ? 'open' : ''}`}
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
               <span></span>
               <span></span>
               <span></span>
@@ -74,7 +97,7 @@ export default function MainPage() {
           <div className="site-info-dropdown">
             <button className="site-info-btn">사이트 정보</button>
             <ul className="site-info-list">
-              <li>LeisureUp은 ~~한 서비스입니다.</li>
+              <li>LeisureUp은 다양한 체육 관련 기능을 제공합니다.</li>
               <li>
                 <span
                   className="site-info-link"
@@ -86,14 +109,15 @@ export default function MainPage() {
                       ",height=" + Math.floor(window.innerHeight * 0.8) +
                       ",resizable=yes,scrollbars=yes"
                     );
-                  }}>
+                  }}
+                >
                   Chatbot
                 </span>{" "}
-                은 다양한 기능을 제공합니다.
+                을 통해 빠른 질의응답이 가능합니다.
               </li>
-              <li>맞춤형 체육시설은</li>
-              <li>공공 게시판은</li>
-              <li>수요-공급 정보를 한눈에 확인할 수 있습니다.</li>
+              <li>맞춤형 체육시설 검색 기능도 제공합니다.</li>
+              <li>공공 게시판에서 정보를 공유할 수 있습니다.</li>
+              <li>수요-공급 현황을 한눈에 볼 수 있습니다.</li>
             </ul>
           </div>
         </div>

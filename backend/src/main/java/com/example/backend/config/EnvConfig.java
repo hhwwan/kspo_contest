@@ -4,11 +4,9 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * EnvConfig.java
- *
- * 이 클래스는 프로젝트 실행 시 .env 파일을 자동으로 로드하여
- * .env 내의 환경 변수를 System Property로 등록합니다.
- * application.properties에서는 ${KEY_NAME} 형태로 접근할 수 있습니다.
+ 프로젝트 실행 시 .env 파일을 자동으로 로드하여
+ .env 내의 환경 변수를 System Property로 등록합니다.
+ *application.properties에서는 ${KEY_NAME} 형태로 접근할 수 있음.
  */
 @Configuration
 public class EnvConfig {
