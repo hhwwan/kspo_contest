@@ -141,7 +141,7 @@
     padding: 10px;
     font-weight: bold;
     font-size: 16px;
-    animation: fadeInOut 3s forwards; /* 입장 후 3초 후 사라짐 */
+    animation: fadeInOut 7s forwards; /* 입장 후 7초 후 사라짐 */
   }
   
   @keyframes fadeInOut {

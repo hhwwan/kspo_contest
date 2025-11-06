@@ -1,0 +1,185 @@
+/* SignupPage.css - 데스크탑은 라벨/입력창 가로 배치, 작은 화면에서만 세로 스택 */
+:root{
+    --bg1: #eef2ff;
+    --card-bg: #ffffff;
+    --accent: #5b21b6; /* 보라 계열 포인트 */
+    --muted: #6b7280;
+    --radius: 16px;
+    --shadow: 0 10px 30px rgba(16,24,40,0.08);
+  }
+  
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Inter, "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+  
+  .signup-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg1), #e6eefb);
+    padding: 40px;
+  }
+  
+  /* 카드 전체 너비: 데스크탑에선 넓게 (60~70% viewport), 최대 너비 제한 */
+  .signup-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px 36px;
+    width: 72vw;
+    max-width: 920px;
+    min-width: 520px; /* 데스크탑에서 너무 좁아지지 않게 고정 */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 좌우 두 영역 (필요시 왼쪽에 이미지나 문구 추가 가능) */
+    gap: 20px;
+  }
+  
+  /* 헤더은 왼쪽 상단 영역에 배치 (좌측 칸 차지) */
+  .signup-header {
+    grid-column: 1 / 2;
+    align-self: start;
+    padding-right: 8px;
+  }
+  .signup-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--accent);
+  }
+  .signup-header .sub {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  
+  /* 폼은 오른쪽 영역 전체 차지 */
+  .signup-form {
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  /* form-row는 라벨과 입력을 같은 줄에 배치 (desktop) */
+  .form-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  /* 라벨 고정 너비로 정렬 */
+  .form-row label {
+    width: 110px;
+    font-size: 14px;
+    color: #374151;
+    font-weight: 600;
+  }
+  
+  /* 입력창 스타일 */
+  .form-row input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid #e6e7ee;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: box-shadow .15s ease, border-color .15s ease;
+  }
+  .form-row input:focus {
+    border-color: rgba(91,33,182,0.9);
+    box-shadow: 0 4px 12px rgba(91,33,182,0.08);
+  }
+  
+  /* 액션 버튼들 (가로 정렬) */
+  .form-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 6px;
+  }
+  
+  .primary-btn {
+    background: linear-gradient(90deg, var(--accent), #7c3aed);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    min-width: 140px;
+    box-shadow: 0 8px 20px rgba(124,58,237,0.12);
+  }
+  .primary-btn:hover { transform: translateY(-2px); transition: transform .12s ease; }
+  
+  .text-btn {
+    background: transparent;
+    border: none;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  /* 반응형: 화면이 좁아지면 카드 내부를 단일 컬럼으로 전환 */
+  @media (max-width: 980px) {
+    .signup-card {
+      grid-template-columns: 1fr;
+      width: 92vw;
+      min-width: auto;
+    }
+  
+    .signup-header {
+      grid-column: 1 / -1;
+      padding-right: 0;
+      margin-bottom: 6px;
+    }
+  
+    .signup-form {
+      grid-column: 1 / -1;
+    }
+  
+    /* 모바일에서는 라벨을 위로, 입력은 전체 너비 */
+    .form-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .form-row label {
+      width: auto;
+      margin-bottom: 6px;
+    }
+  
+    .form-actions {
+      justify-content: space-between;
+    }
+  }
+  
+  /* 아주 작은 화면(모바일)에서 텍스트·버튼 크기 조정 */
+  @media (max-width: 420px) {
+    .signup-card { padding: 20px; }
+    .signup-header h2 { font-size: 22px; }
+    .primary-btn { min-width: 120px; padding: 10px 14px; }
+  }  
+
+  /* 홈으로 버튼 */
+.home-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .home-btn {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .home-btn:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
