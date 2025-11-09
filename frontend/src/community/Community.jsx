@@ -9,21 +9,27 @@ export default function Community() {
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 5;
 
-    useEffect(() => {
-        fetch('http://13.124.222.250:8080/api/community')
-            .then(res => res.json())
-            .then(data => setPosts(data))
-            .catch(err => console.error(err));
-    }, []);
+    const token = localStorage.getItem("token");
 
-    // 검색/필터링
+    useEffect(() => {
+        fetch('http://13.124.222.250:8080/api/community', {
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+            .then(res => res.json())
+            .then(data => {
+                // createdAt 기준 내림차순으로 정렬: 최신 글이 맨 위
+                const sorted = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setPosts(sorted);
+            })
+            .catch(err => console.error(err));
+    }, [token]);
+
     const filteredPosts = posts.filter(post =>
         post.title.toLowerCase().includes(search.toLowerCase()) ||
         post.content.toLowerCase().includes(search.toLowerCase()) ||
-        post.author.toLowerCase().includes(search.toLowerCase())
+        post.authorName.toLowerCase().includes(search.toLowerCase())
     );
 
-    // 페이징
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -31,10 +37,17 @@ export default function Community() {
 
     const changePage = (pageNumber) => setCurrentPage(pageNumber);
 
-    // 게시글 삭제
     const handleDelete = (id) => {
-        fetch(`http://13.124.222.250:8080/api/community/${id}`, { method: 'DELETE' })
-            .then(() => setPosts(posts.filter(post => post.id !== id)));
+        fetch(`http://13.124.222.250:8080/api/community/${id}`, {
+            method: 'DELETE',
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("본인 게시글만 삭제할 수 있습니다. 로그인 상태인지 확인하세요.");
+                // 삭제 후 화면에서도 최신 글 기준으로 갱신
+                setPosts(prev => prev.filter(post => post.id !== id));
+            })
+            .catch(err => alert(err.message));
     };
 
     return (
@@ -42,7 +55,6 @@ export default function Community() {
             <div className="community-wrapper">
                 <h1 className="community-title">체육시설 공공 게시판</h1>
                 
-                {/* 검색창 + 작성 버튼을 한 라인에 */}
                 <div className="search-write-container">
                     <input
                         type="text"
@@ -59,7 +71,6 @@ export default function Community() {
                     </button>
                 </div>
 
-                {/* 게시글 목록 */}
                 <div className="posts-list">
                     {currentPosts.map(post => (
                         <div
@@ -68,14 +79,14 @@ export default function Community() {
                             onClick={() => navigate(`/community/${post.id}`)}
                         >
                             <span className="post-date">
-                            {new Date(post.createdAt).toLocaleString('ko-KR', {
-                                year: 'numeric',
-                                month: '2-digit',
-                                day: '2-digit'
-                            })}
+                                {new Date(post.createdAt).toLocaleString('ko-KR', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit'
+                                })}
                             </span>
                             <h2 className="post-title">{post.title}</h2>
-                            <span className="post-author">{post.author}</span>
+                            <span className="post-author">{post.authorName}</span>
                             <button
                                 className="delete-button"
                                 onClick={(e) => { e.stopPropagation(); handleDelete(post.id); }}
@@ -86,7 +97,6 @@ export default function Community() {
                     ))}
                 </div>
 
-                {/* 페이지네이션 + 돌아가기 버튼 */}
                 <div className="pagination-container">
                     <div className="pagination">
                         {Array.from({ length: totalPages }, (_, i) => (
@@ -99,7 +109,6 @@ export default function Community() {
                             </button>
                         ))}
                     </div>
-
                     <button className="community-back-button" onClick={() => navigate('/')}>
                         ← 메인으로 돌아가기
                     </button>

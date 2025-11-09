@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './PostForm.css';
 
 export default function CommunityWrite() {
     const navigate = useNavigate();
     const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("");
     const [content, setContent] = useState("");
 
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("로그인 후 이용 가능합니다.");
+            navigate("/login");
+        }
+    }, [navigate]);
+
     const handleSubmit = () => {
-        if (!title.trim() || !author.trim() || !content.trim()) {
-            alert('제목, 작성자, 내용은 반드시 입력해야 합니다.');
+        if (!title.trim() || !content.trim()) {
+            alert('제목과 내용을 모두 입력하세요.');
             return;
         }
-        
+
+        const token = localStorage.getItem("token");
         fetch("http://13.124.222.250:8080/api/community", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, author, content })
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({ title, content }) // author 제거
         })
         .then(res => res.json())
         .then(() => navigate("/community"))
@@ -28,15 +39,7 @@ export default function CommunityWrite() {
         <div className="post-detail-container">
             <div className="post-detail-wrapper">
                 <h1 className="post-detail-title">게시글 작성</h1>
-                <div className="post-detail-meta">
-                    <input
-                        type="text"
-                        placeholder="작성자"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                        className="post-meta-input"
-                    />
-                </div>
+
                 <div className="post-detail-content-wrapper">
                     <input
                         type="text"
@@ -52,9 +55,12 @@ export default function CommunityWrite() {
                         className="post-content-textarea"
                     />
                 </div>
+
                 <div className="detail-footer">
                     <button className="edit-button" onClick={handleSubmit}>작성 완료</button>
-                    <button className="detail-back-button" onClick={() => navigate('/community')}>← 목록으로 돌아가기</button>
+                    <button className="detail-back-button" onClick={() => navigate('/community')}>
+                        ← 목록으로 돌아가기
+                    </button>
                 </div>
             </div>
         </div>

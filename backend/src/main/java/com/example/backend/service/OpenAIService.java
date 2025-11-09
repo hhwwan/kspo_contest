@@ -38,12 +38,12 @@ public class OpenAIService {
         }
 
         // 🔍 디버깅 로그
-        log.info("🔍 [비로그인] 입력 메시지: {}", message);
+        log.info(" [비로그인] 입력 메시지: {}", message);
 
         // 운동 추천 키워드 체크 (현재 메시지만)
         if (isExerciseRequest(message)) {
             String exerciseType = getExerciseType(message);
-            log.info("✅ [비로그인] 운동 추천 감지: {}", exerciseType);
+            log.info(" [비로그인] 운동 추천 감지: {}", exerciseType);
             return getExerciseRecommendation(exerciseType);
         }
 
@@ -67,18 +67,18 @@ public class OpenAIService {
             return "메시지가 비어 있습니다. 입력을 다시 확인해주세요.";
         }
 
-        // 🔍 디버깅 로그
-        log.info("🔍 [로그인] 현재 메시지: {}", currentMessage);
-        log.info("🔍 [로그인] 히스토리 개수: {}", history.size());
+        //  디버깅 로그
+        log.info(" [로그인] 현재 메시지: {}", currentMessage);
+        log.info(" [로그인] 히스토리 개수: {}", history.size());
         
         // 오직 현재 메시지만 운동 추천 키워드 체크
         if (isExerciseRequest(currentMessage)) {
             String exerciseType = getExerciseType(currentMessage);
-            log.info("✅ [로그인] 운동 추천 감지: {}", exerciseType);
+            log.info(" [로그인] 운동 추천 감지: {}", exerciseType);
             return getExerciseRecommendation(exerciseType);
         }
 
-        log.info("✅ [로그인] 일반 대화 모드");
+        log.info(" [로그인] 일반 대화 모드");
 
         // 시스템 프롬프트
         List<Map<String, String>> systemPrompts = List.of(
@@ -105,7 +105,7 @@ public class OpenAIService {
         return callOpenAI(messages);
     }
 
-    // 🔍 운동 추천 요청인지 확인하는 헬퍼 메서드
+    //  운동 추천 요청인지 확인하는 헬퍼 메서드
     private boolean isExerciseRequest(String message) {
         String normalized = message.replaceAll("\\s+", "");
         boolean isIndoor = normalized.contains("실내운동") || 
@@ -113,11 +113,11 @@ public class OpenAIService {
         boolean isOutdoor = normalized.contains("실외운동") || 
                            (normalized.contains("실외") && normalized.contains("운동"));
         
-        log.info("  🔍 키워드 체크 - 실내: {}, 실외: {}", isIndoor, isOutdoor);
+        log.info("   키워드 체크 - 실내: {}, 실외: {}", isIndoor, isOutdoor);
         return isIndoor || isOutdoor;
     }
 
-    // 🔍 운동 타입 추출
+    //  운동 타입 추출
     private String getExerciseType(String message) {
         String normalized = message.replaceAll("\\s+", "");
         if (normalized.contains("실내운동") || (normalized.contains("실내") && normalized.contains("운동"))) {
