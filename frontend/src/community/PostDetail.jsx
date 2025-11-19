@@ -36,17 +36,21 @@ export default function PostDetail() {
 
     if (!post) return <div>게시글을 불러오는 중입니다...</div>;
 
+    //  JWT에서 username 추출
     let payloadUsername = "";
     try {
         if (token) {
             const payload = JSON.parse(atob(token.split(".")[1]));
-            payloadUsername = payload.username;
+            // username, sub 등 다양한 이름으로 들어올 수 있으므로 우선순위로 처리
+            payloadUsername = payload.username || payload.sub || "";
         }
     } catch (err) {
         console.error("JWT 파싱 오류", err);
     }
 
-    const isAuthor = post.authorName === payloadUsername;
+    //  서버 응답에서 작성자 필드명 확인 (authorName, authorUsername, author)
+    const authorField = post.authorName || post.authorUsername || post.author || "";
+    const isAuthor = authorField === payloadUsername;
 
     return (
         <div className="post-detail-container">
@@ -54,7 +58,7 @@ export default function PostDetail() {
                 <div className="detail-header">
                     <h1 className="post-detail-title">{post.title}</h1>
                     <div className="post-detail-meta">
-                        <span>{post.authorName}</span> | <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                        <span>{authorField}</span> | <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                     </div>
                     <div className="post-detail-content-wrapper">
                         <p className="post-content">{post.content}</p>
@@ -62,6 +66,7 @@ export default function PostDetail() {
                 </div>
 
                 <div className="detail-footer">
+                    {/*  로그인 사용자와 작성자 일치 시 수정/삭제 버튼 표시 */}
                     {isAuthor && (
                         <>
                             <button className="edit-button" onClick={handleEdit}>수정</button>

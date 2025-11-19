@@ -101,6 +101,7 @@ body {
 
 .main-hero-text {
   position: absolute;
+  z-index: 10;
   top: 30px;
   left: 100px;
   color: #000;
