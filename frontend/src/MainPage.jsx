@@ -13,11 +13,32 @@ export default function MainPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // 로그인 상태 확인
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token); // token이 있으면 true
-  }, []);
+// 로그인 상태 확인 + 토큰 만료 체크
+useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    setIsLoggedIn(false);
+    return;
+  }
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const isExpired = payload.exp * 1000 < Date.now();
+
+    if (isExpired) {
+      // 만료된 토큰 자동 로그아웃 처리
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+    }
+  } catch (e) {
+    console.error("JWT 파싱 오류:", e);
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  }
+}, []);
 
   // 로그아웃
   const handleLogout = () => {
