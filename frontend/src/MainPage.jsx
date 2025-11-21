@@ -81,7 +81,7 @@ useEffect(() => {
               간편하게 <span className="chatbot-highlight">챗봇에 질문하기!</span>
             </div>
 
-            {/* ✅ 로그인 상태에 따라 버튼 변경 */}
+            {/*  로그인 상태에 따라 버튼 변경 */}
             <div className="main-header-buttons">
               {isLoggedIn ? (
                 <button onClick={handleLogout}>Logout</button>
@@ -107,8 +107,8 @@ useEffect(() => {
             <div className={`menu-dropdown ${menuOpen ? 'active' : ''}`}>
               <span onClick={() => navigate('/chat')}>챗봇</span>
               <span onClick={() => navigate('/recommend')}>맞춤형 체육시설 검색</span>
-              <span onClick={() => navigate('/community')}>공공 게시판</span>
-              <span onClick={() => navigate('/sdi')}>수요 - 공급 현황</span>
+              <span onClick={() => navigate('/community')}>체육시설 공공 게시판</span>
+              <span onClick={() => navigate('/sdi')}>수요-공급 현황 확인</span>
             </div>
           </div>
         </header>
@@ -118,27 +118,11 @@ useEffect(() => {
           <div className="site-info-dropdown">
             <button className="site-info-btn">사이트 정보</button>
             <ul className="site-info-list">
-              <li>LeisureUp은 다양한 체육 관련 기능을 제공합니다.</li>
-              <li>
-                <span
-                  className="site-info-link"
-                  onClick={() => {
-                    window.open(
-                      "/chat",
-                      "_blank",
-                      "width=" + Math.floor(window.innerWidth * 0.8) +
-                      ",height=" + Math.floor(window.innerHeight * 0.8) +
-                      ",resizable=yes,scrollbars=yes"
-                    );
-                  }}
-                >
-                  챗봇
-                </span>{" "}
-                은 사용자 로그인 여부에 따라 대화 기록을 연동하며, 웹사이트 정보와 운동 추천 기능을 제공하는 지능형 서비스입니다.
-              </li>
-              <li>맞춤형 체육시설 검색 기능도 제공합니다.</li>
-              <li>공공 게시판에서 정보를 공유할 수 있습니다.</li>
-              <li>수요-공급 현황을 한눈에 볼 수 있습니다.</li>
+              <li>LeisureUp은 다양한 체육 관련 기능을 제공합니다!</li>
+              <li>챗봇 - 국민체력 100 데이터를 이용한 운동 추천 기능을 제공하는 서비스</li>
+              <li>맞춤형 체육시설 검색 - 성별, 연령별 여가 활동 상위 10개 제공 및 사용자 주변 해당 시설 위치 제공 서비스</li>
+              <li>체육시설 공공 게시판 - 체육시설 사용자를 위한 자유게시판 서비스</li>
+              <li>수요-공급 현황 확인 - 인구특성별 선택 후 SDI(공급부족지수) · PDI(잠재 수요 지수)를 시각화 이미지로 제공하는 서비스</li>
             </ul>
           </div>
         </div>

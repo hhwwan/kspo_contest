@@ -234,7 +234,6 @@ body {
 }
 
 .site-info-list {
-  /* 부모 흐름 안에서 자연스럽게 배치 */
   background-color: rgba(255,255,255,0.95);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -243,17 +242,16 @@ body {
   list-style: none;
   z-index: 10;
 
-  display: grid; /* 그리드 유지 */
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 최소 200px, 가능한 만큼 열 추가 */
-  gap: 10px; /* 아이템 간격 */
-
-  opacity: 0; /* 처음은 숨김 */
-  transform: translateY(-10px); /* 위로 살짝 이동 */
-  transition: all 0.3s ease; /* 부드러운 전환 */
+  display: grid; /* block → grid */
+  grid-template-columns: 1fr; /* 한 열로 */
+  row-gap: 12px; /* 세로 간격 */
+  
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
 }
 
 .site-info-list li {
-  margin: 0; /* 그리드에서 gap 사용 */
   font-size: 16px;
 }
 
@@ -339,7 +337,7 @@ body {
 }
 
 .menu-dropdown.active {
-  display: flex;
+  display:flex;
   animation: fadeIn 0.3s ease forwards;
 }
 
