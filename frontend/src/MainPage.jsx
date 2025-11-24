@@ -13,37 +13,46 @@ export default function MainPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-// 로그인 상태 확인 + 토큰 만료 체크
-useEffect(() => {
-  const token = localStorage.getItem("token");
+  //  추가된 부분: 로그인한 사용자 ID 표시
+  const [userId, setUserId] = useState("");
 
-  if (!token) {
-    setIsLoggedIn(false);
-    return;
-  }
+  // 로그인 상태 확인 + 토큰 만료 체크
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-  try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    const isExpired = payload.exp * 1000 < Date.now();
+    if (!token) {
+      setIsLoggedIn(false);
+      setUserId("");
+      return;
+    }
 
-    if (isExpired) {
-      // 만료된 토큰 자동 로그아웃 처리
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const isExpired = payload.exp * 1000 < Date.now();
+
+      if (isExpired) {
+        localStorage.removeItem("token");
+        setIsLoggedIn(false);
+        setUserId("");
+      } else {
+        setIsLoggedIn(true);
+
+        // JWT에서 아이디 추출 (payload.sub사용)
+        setUserId( payload.sub || "");
+      }
+    } catch (e) {
+      console.error("JWT 파싱 오류:", e);
       localStorage.removeItem("token");
       setIsLoggedIn(false);
-    } else {
-      setIsLoggedIn(true);
+      setUserId("");
     }
-  } catch (e) {
-    console.error("JWT 파싱 오류:", e);
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-  }
-}, []);
+  }, []);
 
   // 로그아웃
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    setUserId("");
     alert("로그아웃 되었습니다.");
     navigate("/");
   };
@@ -60,11 +69,20 @@ useEffect(() => {
       <section className="main-hero">
         <img src={BuildingImg} alt="Background" className="bg-image" />
         <header className="main-header">
+          
           {/* 왼쪽 로고 */}
           <div className="main-logo">LeisureUp</div>
 
           {/* 오른쪽 전체 영역 */}
           <div className="header-right">
+
+            {/* 로그인한 사용자 표시 ⭐ */}
+            {isLoggedIn && (
+              <div className="logged-user">
+                <span>{userId} 님</span>
+              </div>
+            )}
+
             {/* 챗봇 링크 */}
             <div
               className="chatbot-top-link"
@@ -81,7 +99,7 @@ useEffect(() => {
               간편하게 <span className="chatbot-highlight">챗봇에 질문하기!</span>
             </div>
 
-            {/*  로그인 상태에 따라 버튼 변경 */}
+            {/* 로그인 상태에 따라 버튼 변경 */}
             <div className="main-header-buttons">
               {isLoggedIn ? (
                 <button onClick={handleLogout}>Logout</button>
@@ -112,6 +130,7 @@ useEffect(() => {
             </div>
           </div>
         </header>
+
 
         <div className="main-hero-text">
           <h1>LeisureUp</h1>

@@ -363,3 +363,10 @@ body {
     transform: translateY(0);
   }
 }
+
+.logged-user {
+  margin-right: 15px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 15px;
+}
