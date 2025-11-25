@@ -11,17 +11,31 @@ export default function Community() {
 
     const token = localStorage.getItem("token");
 
+    // ⭐ 로그인한 사용자 ID 상태
+    const [userId, setUserId] = useState("");
+    useEffect(() => {
+        if(token) {
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                setUserId(payload.sub || "");
+            } catch(e) {
+                console.error("JWT 파싱 오류:", e);
+                setUserId("");
+            }
+        }
+    }, [token]);
+
+    // 게시글 가져오기
     useEffect(() => {
         fetch('http://13.124.222.250:8080/api/community', {
             headers: { "Authorization": `Bearer ${token}` }
         })
-            .then(res => res.json())
-            .then(data => {
-                // createdAt 기준 내림차순으로 정렬: 최신 글이 맨 위
-                const sorted = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                setPosts(sorted);
-            })
-            .catch(err => console.error(err));
+        .then(res => res.json())
+        .then(data => {
+            const sorted = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            setPosts(sorted);
+        })
+        .catch(err => console.error(err));
     }, [token]);
 
     const filteredPosts = posts.filter(post =>
@@ -37,24 +51,33 @@ export default function Community() {
 
     const changePage = (pageNumber) => setCurrentPage(pageNumber);
 
-    const handleDelete = (id) => {
+    // 삭제 (본인 글만 가능)
+    const handleDelete = (id, authorName) => {
+        if(userId !== authorName) {
+            alert("본인 게시글만 삭제할 수 있습니다.");
+            return;
+        }
         fetch(`http://13.124.222.250:8080/api/community/${id}`, {
             method: 'DELETE',
             headers: { "Authorization": `Bearer ${token}` }
         })
-            .then(res => {
-                if (!res.ok) throw new Error("본인 게시글만 삭제할 수 있습니다. 로그인 상태인지 확인하세요.");
-                // 삭제 후 화면에서도 최신 글 기준으로 갱신
-                setPosts(prev => prev.filter(post => post.id !== id));
-            })
-            .catch(err => alert(err.message));
+        .then(res => {
+            if (!res.ok) throw new Error("삭제 실패");
+            setPosts(prev => prev.filter(post => post.id !== id));
+        })
+        .catch(err => alert(err.message));
     };
 
     return (
         <div className="community-container">
             <div className="community-wrapper">
-                <h1 className="community-title">체육시설 공공 게시판</h1>
-                
+
+                {/* ⭐ 상단 헤더: 제목 + 로그인 사용자 표시 */}
+                <div className="community-header">
+                    <h1 className="community-title">체육시설 공공 게시판</h1>
+                    {userId && <div className="logged-user">{userId} 님</div>}
+                </div>
+
                 <div className="search-write-container">
                     <input
                         type="text"
@@ -63,12 +86,16 @@ export default function Community() {
                         onChange={(e) => setSearch(e.target.value)}
                         className="search-input"
                     />
-                    <button
-                        className="write-button"
-                        onClick={() => navigate("/community/write")}
-                    >
-                        게시글 작성
-                    </button>
+                    {token ? (
+                        <button
+                            className="write-button"
+                            onClick={() => navigate("/community/write")}
+                        >
+                            게시글 작성
+                        </button>
+                    ) : (
+                        <span className="login-note">로그인 후 글 작성 가능</span>
+                    )}
                 </div>
 
                 <div className="posts-list">
@@ -86,13 +113,21 @@ export default function Community() {
                                 })}
                             </span>
                             <h2 className="post-title">{post.title}</h2>
-                            <span className="post-author">{post.authorName}</span>
-                            <button
-                                className="delete-button"
-                                onClick={(e) => { e.stopPropagation(); handleDelete(post.id); }}
-                            >
-                                삭제
-                            </button>
+
+                            {/* 작성자 표시 */}
+                            <span className={`post-author ${post.authorName === userId ? 'my-post' : ''}`}>
+                                {post.authorName}{post.authorName === userId ? " (나)" : ""}
+                            </span>
+
+                            {/* 삭제 버튼: 본인 글만 */}
+                            {post.authorName === userId && (
+                                <button
+                                    className="delete-button"
+                                    onClick={(e) => { e.stopPropagation(); handleDelete(post.id, post.authorName); }}
+                                >
+                                    삭제
+                                </button>
+                            )}
                         </div>
                     ))}
                 </div>
