@@ -1,0 +1,213 @@
+/* ===== 페이지 전체 ===== */
+.user-page-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+/* ===== 카드 ===== */
+.user-card {
+  width: 90vw;
+  max-width: 1600px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 40px;
+  margin-bottom: 90px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+}
+
+
+/* ===== 제목 ===== */
+.user-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 40px;
+}
+
+
+/* ===== 필터 ===== */
+.user-filter-box {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 35px;
+}
+
+.user-filter-box select,
+.user-filter-box button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.user-filter-box button {
+  background: #4b83ff;
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+.user-filter-box button:hover {
+  background: #3a6bdd;
+}
+
+
+/* 결과 영역 */
+.result-area {
+  display: flex;
+  gap: 25px;
+  width: 100%;
+}
+
+/* 테이블 */
+.activity-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 15px;
+}
+
+.activity-table th {
+  height: 45px;
+  background: #eef3ff;
+}
+
+.activity-table td {
+  height: 38px;
+  border-bottom: 1px solid #eee;
+}
+
+.activity-table button {
+  padding: 6px 12px;
+  background: #4b83ff;
+  border:none;
+  border-radius: 6px;
+  color:white;
+  cursor:pointer;
+}
+.activity-table button:hover {
+  background:#2f5fd4;
+}
+
+.notice-bar {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+
+  width: 100%;
+  margin: 10px 0 20px 0;
+  gap: 10px;
+}
+
+.notice-bar p {
+  margin: 0;
+  padding: 0;
+}
+
+.back-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #4b83ff;
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.back-btn:hover {
+  background: #3a6bdd;
+}
+
+
+/* 지도 영역 */
+.map-box {
+  flex: 6;
+}
+
+.map-box iframe {
+  width: 100%;
+  height: 88vh;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+/* ===== 다크 모드 대응 ===== */
+@media (prefers-color-scheme: dark) {
+
+  /* 페이지 배경 */
+  body {
+    background: #1e1e1e;
+    color: #eaeaea;
+  }
+
+  /* 메인 카드 */
+  .user-card {
+    background: #2a2a2a;
+    color: #f1f1f1;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  }
+
+  /* 제목 */
+  .user-title {
+    color: #ffffff;
+  }
+
+  /* 필터 select, button 박스 */
+  .user-filter-box select,
+  .user-filter-box button {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+  }
+
+  /* 조회 버튼 hover */
+  .user-filter-box button:hover {
+    background: #3a6bdd;
+  }
+
+  /* 안내문구 + 돌아가기 버튼 줄 */
+  .notice-bar p {
+    color: #ddd;
+  }
+
+  .back-btn {
+    background: #4b83ff;
+    color: #fff;
+  }
+
+  .back-btn:hover {
+    background: #3a6bdd;
+  }
+
+  /* 테이블 */
+  .activity-table th {
+    background: #39445a;
+    color: #fff;
+  }
+
+  .activity-table td {
+    border-bottom: 1px solid #555;
+    color: #eaeaea;
+  }
+
+  /* 테이블 버튼 */
+  .activity-table button {
+    background: #4b83ff;
+    color: white;
+  }
+
+  .activity-table button:hover {
+    background: #2f5fd4;
+  }
+
+  /* 지도 iframe 테두리 */
+  .map-box iframe {
+    border: 1px solid #666;
+  }
+}

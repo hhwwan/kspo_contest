@@ -22,7 +22,7 @@ export default function CommunityWrite() {
         }
 
         const token = localStorage.getItem("token");
-        fetch("http://13.124.222.250:8080/api/community", {
+        fetch("http://leisureupup.com:8080/api/community", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

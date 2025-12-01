@@ -4,7 +4,7 @@ import './Sdi_Pdi.css'
 
 function Sdi_Pdi_Page() {
     const navigate = useNavigate(); // 돌아가기 버튼용도
-    const FASTAPI_BASE_URL = 'http://13.124.222.250:8000/api';
+    const FASTAPI_BASE_URL = 'http://leisureupup.com:8000/api';
 
     // URL용 안전한 이름으로 변환
     function toSafeFilename(name) {

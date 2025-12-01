@@ -41,7 +41,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             // 경로 권한 
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/","/api/signup", "/api/login", "/index.html", "/static/**", "/assets/**","/api","chat","/api/chat","/api/chat/**","/api/auth/**","/api/chat/send","/community","api/community","api/community/**","/vite.svg","api/sdi/**","api/pdi/**","api/sdi","api/pdi").permitAll()
+                .requestMatchers("/","/api/signup", "/api/login", "/index.html", "/static/**", "/assets/**","/api","chat","/api/chat","/api/chat/**","/api/auth/**","/api/chat/send","/community","api/community","api/community/**","/vite.svg","api/sdi/**","api/pdi/**","api/sdi","api/pdi","api/user/search","api/user").permitAll()
                 //.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
             )
