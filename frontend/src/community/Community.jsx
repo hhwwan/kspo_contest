@@ -27,7 +27,7 @@ export default function Community() {
 
     // 게시글 가져오기
     useEffect(() => {
-        fetch('http://13.124.222.250:8080/api/community', {
+        fetch('http://leisureupup.com:8080/api/community', {
             headers: { "Authorization": `Bearer ${token}` }
         })
         .then(res => res.json())
@@ -57,7 +57,7 @@ export default function Community() {
             alert("본인 게시글만 삭제할 수 있습니다.");
             return;
         }
-        fetch(`http://13.124.222.250:8080/api/community/${id}`, {
+        fetch(`http://leisureupup.com:8080/api/community/${id}`, {
             method: 'DELETE',
             headers: { "Authorization": `Bearer ${token}` }
         })

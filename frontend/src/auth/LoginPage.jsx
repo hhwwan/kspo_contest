@@ -9,7 +9,7 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch("http://13.124.222.250:8080/api/login", {
+      const res = await fetch("http://leisureupup.com:8080/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

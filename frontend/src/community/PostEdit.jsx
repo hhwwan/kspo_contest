@@ -11,7 +11,7 @@ export default function PostEdit() {
     const token = localStorage.getItem("token");
 
     useEffect(() => {
-        fetch(`http://13.124.222.250:8080/api/community/${id}`, {
+        fetch(`http://leisureupup.com:8080/api/community/${id}`, {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then(res => res.json())
@@ -29,7 +29,7 @@ export default function PostEdit() {
             return;
         }
 
-        fetch(`http://13.124.222.250:8080/api/community/${id}`, {
+        fetch(`http://leisureupup.com:8080/api/community/${id}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",

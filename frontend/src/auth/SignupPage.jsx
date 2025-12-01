@@ -9,7 +9,7 @@ function SignupPage() {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch("http://13.124.222.250:8080/api/signup", {
+      const response = await fetch("http://leisureupup.com:8080/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

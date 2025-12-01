@@ -15,7 +15,7 @@ app = FastAPI(title="FastAPI 통합 서버")
 # CORS 미들웨어 추가
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://13.124.222.250:5173", "http://13.124.222.250:8080"],  # React 개발 서버 주소
+    allow_origins=["http://13.124.222.250:5173", "http://13.124.222.250:8080","http://leisureupup.com:8080"],  # React 개발 서버 주소
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -59,7 +59,7 @@ export default function MainPage() {
 
   const serviceImages = [
     { img: ChatbotImg, text: '챗봇', route: "/chat" },
-    { img: CustomImg, text: '맞춤형 체육시설 검색' },
+    { img: CustomImg, text: '맞춤형 체육시설 검색' ,route:"/user"},
     { img: CommunityImg, text: '체육시설 공공 게시판', route: "/community" },
     { img: SupplyImg, text: '수요 - 공급 현황 확인', route: "/sdi" },
   ];

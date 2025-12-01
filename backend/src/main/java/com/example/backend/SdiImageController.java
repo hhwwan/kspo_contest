@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/sdi")
 public class SdiImageController {
-    private final String FASTAPI_BASE_URL = "http://13.124.222.250:8000";
+    private final String FASTAPI_BASE_URL = "http://leisureupup.com:8000";
     private final RestTemplate restTemplate = new RestTemplate();
 
     // 지역 목록 제공
