@@ -124,7 +124,7 @@ export default function MainPage() {
             {/* 드롭다운 메뉴 */}
             <div className={`menu-dropdown ${menuOpen ? 'active' : ''}`}>
               <span onClick={() => navigate('/chat')}>챗봇</span>
-              <span onClick={() => navigate('/recommend')}>맞춤형 체육시설 검색</span>
+              <span onClick={() => navigate('/user')}>맞춤형 체육시설 검색</span>
               <span onClick={() => navigate('/community')}>체육시설 공공 게시판</span>
               <span onClick={() => navigate('/sdi')}>수요-공급 현황 확인</span>
             </div>
